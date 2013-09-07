@@ -1,3 +1,9 @@
+0.1
+---
+
+-  Add docs
+-  Many enhancements and API changes
+
 0.0
 ---
 

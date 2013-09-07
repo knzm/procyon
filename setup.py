@@ -7,7 +7,7 @@ README = open(os.path.join(here, 'README.txt')).read()
 CHANGES = open(os.path.join(here, 'CHANGES.txt')).read()
 
 setup(name='procyon',
-      version='0.0',
+      version='0.1',
       description='procyon is a lightweight framework for pyramid',
       long_description=README + '\n\n' + CHANGES,
       classifiers=[
