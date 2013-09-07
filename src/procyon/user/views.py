@@ -14,7 +14,17 @@ class LoginSchema(c.Schema):
                             widget=w.PasswordWidget())
 
 
-class BaseLoginView(FormView):
+class FlashViewMixin(object):
+    def flash(self, message, *args, **kw):
+        try:
+            flash = self.request.session.flash
+        except AttributeError:
+            warnings.warn(u"Session factory is not configured.")
+        else:
+            flash(message, *args, **kw)
+
+
+class BaseLoginView(FormView, FlashViewMixin):
     schema = LoginSchema()
     buttons = ('login',)
 
@@ -29,7 +39,7 @@ class BaseLoginView(FormView):
         password = values['password']
         userid, headers = self.do_login(user_name, password)
         if userid is None:
-            self.request.session.flash(u"ユーザ名とパスワードが一致しません")
+            self.flash(u"ユーザ名とパスワードが一致しません")
             return
 
         response = HTTPFound(self.get_redirect_url())
@@ -37,7 +47,7 @@ class BaseLoginView(FormView):
         return response
 
 
-class BaseLogoutView(object):
+class BaseLogoutView(FlashViewMixin):
     def __init__(self, request):
         self.request = request
 
@@ -48,5 +58,5 @@ class BaseLogoutView(object):
         headers = security.forget(self.request)
         response = HTTPFound(self.get_redirect_url())
         response.headerlist.extend(headers)
-        self.request.session.flash(u"ログアウトしました")
+        self.flash(u"ログアウトしました")
         return response

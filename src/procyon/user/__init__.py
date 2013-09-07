@@ -2,32 +2,8 @@
 
 import venusian
 
-from procyon.base import get_base_model
-
-from .interfaces import IUserModel
+from .api import *
 from .model import UserModelMixin
-
-
-def create_user_model(registry, user_tablename='user'):
-    base = get_base_model(registry)
-
-    class UserModel(UserModelMixin, base):
-        __tablename__ = user_tablename
-
-    return UserModel
-
-
-def get_user_model(registry):
-    return registry.queryUtility(IUserModel)
-
-
-def set_user_model(registry, user_model):
-    registry.registerUtility(user_model, IUserModel)
-
-
-def set_default_user_model(registry, user_tablename='user'):
-    user_model = create_user_model(registry)
-    set_user_model(registry, user_model)
 
 
 def user_model(wrapped):
@@ -40,4 +16,7 @@ def user_model(wrapped):
 
 
 def includeme(config):
+    config.add_directive('set_user_model', '.directives.set_user_model')
+    config.add_directive('set_default_user_model', '.directives.set_default_user_model')
+    config.add_request_method(callable='.directives.get_user_model')
     config.scan('.event')

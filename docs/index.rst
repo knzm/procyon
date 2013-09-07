@@ -164,4 +164,4 @@ with the following configuration:
 
 .. code-block:: python
 
-    config.scan('procyon.panels')
+    config.include('procyon.panels')

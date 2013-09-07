@@ -1,4 +1,8 @@
-from .base import DBSession
+# -*- coding: utf-8 -*-
+
+from .base import DBSession, BaseModel
+from .user import UserModelMixin
+
 
 def includeme(config):
     config.include(".base")

@@ -4,12 +4,16 @@ from sqlalchemy import engine_from_config
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from zope.sqlalchemy import ZopeTransactionExtension
+from zope.interface import provider
+
+from .interfaces import IBaseModel
 
 __all__ = ['DBSession', 'BaseModel', 'setup_model', 'create_all']
 
 DBSession = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))
 
 
+@provider(IBaseModel)
 class BaseModel(declarative_base()):
     __abstract__ = True
 
