@@ -47,8 +47,7 @@ Define a model class in your code that looks like:
 
 .. code-block:: python
 
-  from procyon import BaseModel
-  from procyon import UserModelMixin
+  from procyon import BaseModel, UserModelMixin
 
   class UserModel(BaseModel, UserModelMixin):
       __tablename__ = 'user'
@@ -60,7 +59,7 @@ then, set it via the configurator:
   config.set_user_model(UserModel)
 
 You can still choose not to use :class:`UserModelMixin`.  In this
-case, the model should implements :class:`procyon.user.IUserModel`.
+case, the model should provides :class:`procyon.user.IUserModel`.
 
 Create a default user model and use it
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -84,7 +83,7 @@ Use your own base model (advanced)
   class UserModel(YourBaseModel, UserModelMixin):
       __tablename__ = 'user'
 
-``YourBaseModel`` is any class you defined somewhere that implements
+``YourBaseModel`` is any class you defined somewhere that provides
 :class:`IBaseModel`.
 
 Using views
@@ -101,16 +100,16 @@ All you need is to override them and to define some lacking methods.
 
   class LoginView(BaseLoginView):
       def do_login(self, user_name, password):
-          # you should return (userid, headers) tuple
+          # you should return a (userid, headers) tuple
           return login(self.request, user_name, password)
   
       def get_redirect_url(self):
-          # return somewhere you want to redirect to after login
+          # return any url you want to redirect to after login
           return self.request.route_url('top')
 
   class LogoutView(BaseLogoutView):
       def get_redirect_url(self):
-          # return somewhere you want to redirect to after logout
+          # return any url you want to redirect to after logout
           return self.request.route_url('top')
 
 LoginView and LogoutView are now class views ready to register via
