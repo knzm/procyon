@@ -3,7 +3,7 @@ import os
 from setuptools import setup, find_packages
 
 here = os.path.abspath(os.path.dirname(__file__))
-README = open(os.path.join(here, 'README.txt')).read()
+README = open(os.path.join(here, 'README.rst')).read()
 CHANGES = open(os.path.join(here, 'CHANGES.txt')).read()
 
 setup(name='procyon',
@@ -18,7 +18,7 @@ setup(name='procyon',
         ],
       author='Nozomu Kaneko',
       author_email='nozom.kaneko@gmail.com',
-      url='',
+      url='http://procyon.readthedocs.org/en/latest/',
       keywords='web pyramid pylons',
       package_dir={"": "src"},
       packages=find_packages("src"),
