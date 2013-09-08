@@ -8,7 +8,7 @@ CHANGES = open(os.path.join(here, 'CHANGES.txt')).read()
 
 setup(name='procyon',
       version='0.1',
-      description='procyon is a lightweight framework for pyramid',
+      description='procyon is a collection of reusable components for Pyramid',
       long_description=README + '\n\n' + CHANGES,
       classifiers=[
         "Programming Language :: Python",
